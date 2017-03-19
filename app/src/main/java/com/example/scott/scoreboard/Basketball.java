@@ -76,8 +76,8 @@ public class Basketball extends AppCompatActivity implements View.OnClickListene
             case R.id.action_Reset:
                 home = 0;
                 away = 0;
-                homeScore.setText(String.valueOf(home));
-                awayScore.setText(String.valueOf(away));
+                setHome(home);
+                setAway(away);
                 break;
         }
 
@@ -89,31 +89,64 @@ public class Basketball extends AppCompatActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btnAway1:
                 away++;
-                awayScore.setText(String.valueOf(away));
+                setAway(away);
                 break;
             case R.id.btnAway2:
                 away+=2;
-                awayScore.setText(String.valueOf(away));
+                setAway(away);
                 break;
             case R.id.btnAway3:
                 away+=3;
-                awayScore.setText(String.valueOf(away));
+                setAway(away);
                 break;
             case R.id.btnHome1:
                 home++;
-                homeScore.setText(String.valueOf(home));
+                setHome(home);
                 break;
             case R.id.btnHome2:
                 home+=2;
-                homeScore.setText(String.valueOf(home));
+                setHome(home);
                 break;
             case R.id.btnHome3:
                 home+=3;
-                homeScore.setText(String.valueOf(home));
+                setHome(home);
                 break;
         }
         //awayScore.setText(String.valueOf(away));
         //homeScore.setText(String.valueOf(home));
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putInt("Home", home);
+        savedInstanceState.putInt("Away", away);
+        // etc.
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        home = savedInstanceState.getInt("Home");
+        away = savedInstanceState.getInt("Away");
+        setHome(home);
+        setAway(away);
+        //homeScore.setText(home);
+        //awayScore.setText(away);
+    }
+
+    public void setHome(int h) {
+        homeScore.setText(String.valueOf(h));
+    }
+
+    public void setAway(int a) {
+        awayScore.setText(String.valueOf(a));
+    }
+
 }
